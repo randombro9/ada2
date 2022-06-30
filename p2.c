@@ -1,60 +1,61 @@
-#include <stdio.h>
-
-void merge(int A[],int low,int mid,int high){
-    int i = low;
-    int j = mid+1;
-    int k = low;
-    int B[high+1];
-    while(i<=mid && j<=high){
-        if(A[i] <A[j]){
-            B[k] = A[i];
-            i++;
-            k++;
-        }
-        else{
-            B[k] = A[j];
-            j++;
-            k++;
-        }
-
-    }
-     while(i<=mid){
-            B[k] = A[i];
-            i++;
-            k++;
-        }
-        while(j<=high){
-            B[k] = A[j];
-            j++;
-            k++;
-        }
-       
-    for(int i=low;i<=high;i++){
-        A[i] = B[i];
-    }
+#include<stdio.h>
+int n,a[50];
+main()
+{
+int i;
+printf("\n\t\t\t MERGE SORT \n");
+printf("\n Enter the size of the array:");
+scanf("%d",&n);
+printf("\n Enter the array elements \n");
+for(i=1;i<=n;i++)
+scanf("%d",&a[i]);
+divide(1,n);
+printf("\n Sorted elements of the array \n");
+for(i=1;i<=n;i++)
+printf("%d\t",a[i]);
 }
-
-void mergeSort(int A[], int low,int high){
+divide(int low,int high)
+{
 int mid;
-if(high>low){
-     mid=(low+high)/2;
-    mergeSort(A, low,mid);
-    mergeSort(A,mid+1,high);
-    merge(A,low,mid,high);
+if(low < high)
+{
+mid=(low+high)/2;
+divide(low,mid);
+divide(mid+1,high);
+mergesort(low,mid,high);
 }
 }
-
-
-
-
-int main(){
-    
-    int arr[] = {23,556,1,10,2,556,21,234,1000,7};
-    mergeSort(arr,0,9);
-
-    for(int k=0;k<10;k++){
-        printf("%d\n", arr[k]);
-    }
-
-    return 0;
+mergesort(int low,int mid,int high)
+{
+int i,h,j,k,b[50];
+i=h=low;
+j=mid+1;
+while(h<=mid && j<= high)
+{
+if(a[h]<=a[j])
+{
+b[i]=a[h];
+h=h+1;
+}
+else
+{
+b[i]=a[j];
+j=j+1;
+}
+i=i+1;
+}
+if(h>mid)
+for(k=j;k<=high;k++)
+{
+b[i]=a[k];
+i=i+1;
+}
+else
+for(k=h;k<=mid;k++)
+{
+b[i]=a[k];
+i=i+1;
+}
+for(k=low;k<=high;k++)
+a[k]=b[k];
 }
